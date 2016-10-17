@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
 
-class AdminAuthController extends Controller
+class AuthController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $guard = 'admin';
-    protected $redirectTo = '/admin';
+    protected $guard = 'member';
+    protected $redirectTo = '/member';
 
     protected $username = 'email';
 
@@ -22,7 +23,7 @@ class AdminAuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('admin.login');
+        return view('member.login');
     }
 
     /**
@@ -39,7 +40,7 @@ class AdminAuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/admin/login');
+        return redirect('/member/login');
     }
 
     public function getGuard()
@@ -51,6 +52,5 @@ class AdminAuthController extends Controller
     {
         return Auth::guard($this->getGuard());
     }
-
 
 }
