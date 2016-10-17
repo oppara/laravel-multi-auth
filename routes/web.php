@@ -15,6 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
+Route::group(['prefix' => 'admin'], function () {
+    Route::group(['middleware' => 'guest:admin'], function () {
+        Route::get('login','AdminAuthController@showLoginForm');
+        Route::post('login','AdminAuthController@login');
+    });
+    Route::group(['middleware' => 'auth:admin'], function () {
+        Route::get('home','AdminHomeController@index');
+        Route::get('logout','AdminAuthController@logout');
+    });
+});
+
+Auth::routes();
 Route::get('/home', 'HomeController@index');
