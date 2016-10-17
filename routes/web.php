@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/','HomeController@index');
         Route::get('home','HomeController@index');
         Route::get('logout','AuthController@logout');
+        Route::resource('members', 'HomeController');
     });
 });
 
