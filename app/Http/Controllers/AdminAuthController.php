@@ -14,8 +14,6 @@ class AdminAuthController extends Controller
     protected $guard = 'admin';
     protected $redirectTo = '/admin/home';
 
-    protected $redirectAfterLogout = 'admin/login';
-
     protected $username = 'email';
 
     protected $maxLoginAttempts = 5;
@@ -25,6 +23,23 @@ class AdminAuthController extends Controller
     public function showLoginForm()
     {
         return view('admin.login');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/admin/login');
     }
 
     public function getGuard()
