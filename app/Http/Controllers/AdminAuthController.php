@@ -12,7 +12,7 @@ class AdminAuthController extends Controller
     use AuthenticatesUsers;
 
     protected $guard = 'admin';
-    protected $redirectTo = '/admin/home';
+    protected $redirectTo = '/admin';
 
     protected $username = 'email';
 
