@@ -28,5 +28,17 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
+Route::group(['prefix' => 'member'], function () {
+    Route::group(['middleware' => 'guest:member'], function () {
+        Route::get('login','MemberAuthController@showLoginForm');
+        Route::post('login','MemberAuthController@login');
+    });
+    Route::group(['middleware' => 'auth:member'], function () {
+        Route::get('/','MemberHomeController@index');
+        Route::get('home','MemberHomeController@index');
+        Route::get('logout','MemberAuthController@logout');
+    });
+});
+
 Auth::routes();
 Route::get('/home', 'HomeController@index');
